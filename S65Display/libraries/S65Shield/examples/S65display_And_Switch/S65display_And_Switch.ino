@@ -5,7 +5,8 @@
 
 S65Display lcd;
 RotaryEncoder encoder;
-
+const int analogInPin = A0;
+int sensorValue = 0;
 
 ISR(TIMER2_OVF_vect)
 {
@@ -22,11 +23,10 @@ void drawText(void)
 
   lcd.drawCircle(88, 30, 12, RGB(255,255,  0));
 
-  lcd.drawTextPGM(10, 50, PSTR("S65-Shield")          , 2, RGB(  0,255,  0), RGB(255,  0,  0));
+  lcd.drawTextPGM(10, 50, PSTR("Smart Room")          , 2, RGB(  0,255,  0), RGB(255,  0,  0));
   lcd.drawTextPGM(10, 80, PSTR("         by         "), 1, RGB(255,255,  0), RGB(255,  0,  0));
-  lcd.drawTextPGM(10, 95, PSTR("Watterott electronic"), 1, RGB(255,255,255), RGB(255,  0,  0));
-  lcd.drawTextPGM(10,110, PSTR(" www.watterott.com  "), 1, RGB(  0,  0,255), RGB(255,  0,  0));
-
+  lcd.drawTextPGM(10, 95, PSTR("  J.O.X electronic  "), 1, RGB(255,255,255), RGB(255,  0,  0));
+  //lcd.drawTextPGM(10,110, PSTR(" www.watterott.com  "), 1, RGB(  0,  0,255), RGB(255,  0,  0));
   //Umlaut test text (remove FONT_END7F define)
   // lcd.drawTextPGM(10, 10, PSTR("Test \x84 \x94 \x81 \x8E \x99 \x9A"), 1, RGB(  0,255,  0), RGB(255,  0,  0));
   // lcd.drawText   (10, 25,      "Test \x84 \x94 \x81 \x8E \x99 \x9A",  1, RGB(  0,255,  0), RGB(255,  0,  0));
@@ -62,9 +62,25 @@ void loop()
   int8_t move, press;
   static int16_t mode=0, x=0, y=0, color=RGB(0,255,0);
   
-  
-  move  = encoder.step();
-  press = encoder.sw();
+  sensorValue = analogRead(analogInPin); 
+  if (sensorValue > 140 & sensorValue > 150)
+  {
+    move = move + 1;
+  }
+  if (sensorValue > 320 & sensorValue > 340)
+  {
+    move = move - 1;
+  }
+  if (sensorValue > 730 & sensorValue > 750)
+  {
+    press = 1;
+  }
+  else 
+  {
+    press = 0;
+  }
+  //move  = encoder.step();
+  //press = encoder.sw();
   
   if(move || press)
   {
