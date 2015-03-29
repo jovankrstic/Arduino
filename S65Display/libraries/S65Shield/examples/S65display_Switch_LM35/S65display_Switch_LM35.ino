@@ -47,7 +47,7 @@ void drawText(void)
   //lcd.drawLine(10, 10, 50, 40, RGB(  0,255,255));
   //lcd.drawLine(10, 40, 50, 10, RGB(  0,255,255));
   
-  lcd.fillRect(58, 25, 120, 50, RGB(0,0,  255));
+  lcd.fillRect(58, 27, 120, 50, RGB(0,0,  255));
   Dispint(Temp,60, 30, 2, RGB(  0,255,  0), RGB(0,  0,  255));
   lcd.drawTextPGM(98, 30, PSTR("C"), 2, RGB(  0,255,  0), RGB(0,  0,  255));
   lcd.drawTextPGM(91, 25, PSTR("o"), 1, RGB(  0,255,  0), RGB(0,  0, 255));
